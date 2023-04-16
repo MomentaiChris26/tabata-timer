@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react"
+import { IFormFields } from "../../utils/types"
+import { Center, Heading } from "@chakra-ui/react"
+import { useTimerContext } from "../../TimerContext";
 
-export const Timer = (formFields: any) => {
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
+export const Timer = () => {
+  const { minutes, seconds } = useTimerContext();
 
-  useEffect(() => {
-    const { prepare, work, rest, cycles } = formFields
-    const total = prepare + ((work + rest) * cycles)
-    setMinutes(parseInt(Math.floor(total / 60).toString().padStart(2, '0')))
-    setSeconds(parseInt(Math.floor(total % 60).toString().padStart(2, '0')))
-  }, [formFields])
-
-  return <div>
-    {`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
-  </div>
+  return <Center>
+    <Heading as="h1" size="6xl" py="8">
+      {`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
+    </Heading>
+  </Center>
 }
 
